@@ -7,6 +7,10 @@ public class Cell {
     boolean south;
     boolean east;
 
+    public Cell() {
+        this(true, true);
+    }
+
     public Cell(boolean south, boolean east) {
         this.south = south;
         this.east = east;

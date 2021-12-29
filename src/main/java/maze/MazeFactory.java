@@ -5,6 +5,26 @@ package maze;
 
 public final class MazeFactory {
     public static Maze make(int width, int height) {
+        if (width <= 0 || height <= 0) {
+            return null;
+        } else {
+            Cell[][] maze = allWalls(width, height);
+            return randomRemove(maze);
+        }
+    }
+
+    private static Maze randomRemove(Cell[][] maze) {
+
         return null;
+    }
+
+    private static Cell[][] allWalls(int width, int height) {
+        Cell[][] maze = new Cell[height][width];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                maze[y][x] = new Cell();
+            }
+        }
+        return maze;
     }
 }
