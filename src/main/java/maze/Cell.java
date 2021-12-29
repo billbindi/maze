@@ -16,12 +16,20 @@ public class Cell {
         this.east = east;
     }
 
-    public boolean isWallSouth() {
+    public boolean isSouth() {
         return south;
     }
 
-    public boolean isWallEast() {
+    public boolean isEast() {
         return east;
+    }
+
+    public void setSouth(boolean south) {
+        this.south = south;
+    }
+
+    public void setEast(boolean east) {
+        this.east = east;
     }
 
     @Override

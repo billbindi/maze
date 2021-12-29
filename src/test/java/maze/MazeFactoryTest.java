@@ -10,14 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class MazeFactoryTest {
     @Test
     public void testZeroDimensions() {
-        assertNull(MazeFactory.make(0, 0));
-        assertNull(MazeFactory.make(0, 10));
-        assertNull(MazeFactory.make(10, 0));
+        assertNull(MazeFactory.makeMaze(0, 0));
+        assertNull(MazeFactory.makeMaze(0, 10));
+        assertNull(MazeFactory.makeMaze(10, 0));
     }
 
     @Test
     public void testNegativeDimensions() {
-        assertNull(MazeFactory.make(10, -10));
-        assertNull(MazeFactory.make(-10, 10));
+        assertNull(MazeFactory.makeMaze(10, -10));
+        assertNull(MazeFactory.makeMaze(-10, 10));
     }
 }
