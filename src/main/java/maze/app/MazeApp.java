@@ -15,9 +15,9 @@ public class MazeApp extends JFrame {
         super(title);
 
         Maze maze = MazeFactory.makeMaze(MazeSettings.WIDTH, MazeSettings.HEIGHT);
-        maze.printMaze();
+        MazeModel model = new MazeModel(maze);
 
-        mazePanel = new MazePanel(maze);
+        mazePanel = new MazePanel(model);
 
         JScrollPane scrollPane = new JScrollPane(mazePanel);
         scrollPane.getVerticalScrollBar().setUnitIncrement(10);

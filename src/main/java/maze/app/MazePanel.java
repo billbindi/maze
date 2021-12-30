@@ -1,6 +1,5 @@
 package maze.app;
 
-import maze.Maze;
 import maze.util.Coordinate;
 import maze.util.MazeSettings;
 
@@ -10,11 +9,10 @@ import java.awt.event.KeyEvent;
 
 public class MazePanel extends JPanel {
 
-    private final Maze maze;
-    private Coordinate player;
+    private final MazeModel model;
 
-    public MazePanel(Maze maze) {
-        this.maze = maze;
+    public MazePanel(MazeModel model) {
+        this.model = model;
         setBorder(BorderFactory.createLineBorder(MazeSettings.BORDER_COLOR));
         setBackground(MazeSettings.BACKGROUND_COLOR);
 
@@ -47,43 +45,39 @@ public class MazePanel extends JPanel {
     }
 
     public int minHeight() {
-        return (MazeSettings.CELL_PADDING * 2) + (MazeSettings.CELL_HEIGHT * maze.getHeight());
+        return (MazeSettings.CELL_PADDING * 2) + (MazeSettings.CELL_HEIGHT * model.getHeight());
     }
 
     public int minWidth() {
-        return (MazeSettings.CELL_PADDING * 2) + (MazeSettings.CELL_WIDTH * maze.getWidth());
+        return (MazeSettings.CELL_PADDING * 2) + (MazeSettings.CELL_WIDTH * model.getWidth());
     }
 
     public void moveLeft() {
-        Coordinate left = player.coordinateLeft();
-        if (left.isInBounds(maze.getWidth(), maze.getHeight()) && !maze.wallRight(left)) {
-            setPlayer(left);
+        if (model.canMoveLeft()) {
+            setPlayer(model.getPlayer().coordinateLeft());
         }
     }
 
     public void moveUp() {
-        Coordinate up = player.coordinateUp();
-        if (up.isInBounds(maze.getWidth(), maze.getHeight()) && !maze.wallDown(up)) {
-            setPlayer(up);
+        if (model.canMoveUp()) {
+            setPlayer(model.getPlayer().coordinateUp());
         }
     }
 
     public void moveRight() {
-        Coordinate right = player.coordinateRight();
-        if (right.isInBounds(maze.getWidth(), maze.getHeight()) && !maze.wallRight(player)) {
-            setPlayer(right);
+        if (model.canMoveRight()) {
+            setPlayer(model.getPlayer().coordinateRight());
         }
     }
 
     public void moveDown() {
-        Coordinate down = player.coordinateDown();
-        if (down.isInBounds(maze.getWidth(), maze.getHeight()) && !maze.wallDown(player)) {
-            setPlayer(down);
+        if (model.canMoveDown()) {
+            setPlayer(model.getPlayer().coordinateDown());
         }
     }
 
     private void setPlayer(Coordinate coord) {
-        player = coord;
+        model.setPlayer(coord);
         repaint();
     }
 
@@ -107,14 +101,14 @@ public class MazePanel extends JPanel {
     }
 
     private void drawMaze(Graphics g) {
-        for (int x = 0; x < maze.getWidth(); x++) {
-            for (int y = 0; y < maze.getHeight(); y++) {
+        for (int x = 0; x < model.getWidth(); x++) {
+            for (int y = 0; y < model.getHeight(); y++) {
                 Coordinate cell = new Coordinate(x, y);
-                if (maze.wallRight(cell)) {
+                if (model.getMaze().wallRight(cell)) {
                     g.drawLine(rightX(cell), topY(cell), rightX(cell), bottomY(cell));
                 }
 
-                if (maze.wallDown(cell)) {
+                if (model.getMaze().wallDown(cell)) {
                     g.drawLine(leftX(cell), bottomY(cell), rightX(cell), bottomY(cell));
                 }
             }
@@ -122,16 +116,17 @@ public class MazePanel extends JPanel {
     }
 
     private void drawPlayer(Graphics g) {
+        Coordinate player = model.getPlayer();
         g.fillRect(leftX(player) + 2, topY(player) + 2, MazeSettings.CELL_WIDTH - 4, MazeSettings.CELL_HEIGHT - 4);
     }
 
     private void drawExit(Graphics g) {
-        Coordinate exit = new Coordinate(maze.getWidth() - 1, maze.getHeight() - 1);
+        Coordinate exit = new Coordinate(model.getWidth() - 1, model.getHeight() - 1);
         g.fillRect(leftX(exit) + 1, topY(exit) + 1, MazeSettings.CELL_WIDTH - 2, MazeSettings.CELL_HEIGHT - 2);
     }
 
     private void drawTop(Graphics g) {
-        int width = maze.getWidth();
+        int width = model.getWidth();
         Coordinate start = new Coordinate(0, 0);
         Coordinate end = new Coordinate(width - 1, 0);
         g.drawLine(leftX(start), topY(start),
@@ -139,7 +134,7 @@ public class MazePanel extends JPanel {
     }
 
     private void drawLeft(Graphics g) {
-        int height = maze.getHeight();
+        int height = model.getHeight();
         Coordinate start = new Coordinate(0, 0);
         Coordinate end = new Coordinate(0, height - 1);
         g.drawLine(leftX(start), topY(start),
