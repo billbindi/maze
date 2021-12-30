@@ -79,10 +79,9 @@ public class MazePanel extends JPanel {
     }
 
     private void setPlayer(Coordinate coord) {
+        model.setPlayer(coord);
         if (coord.equals(model.getExit())) {
             model.setSolved(true);
-        } else {
-            model.setPlayer(coord);
         }
         repaint();
     }
