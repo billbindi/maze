@@ -5,19 +5,27 @@ package maze;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MazeFactoryTest {
     @Test
     public void testZeroDimensions() {
-        assertNull(MazeFactory.makeMaze(0, 0));
-        assertNull(MazeFactory.makeMaze(0, 10));
-        assertNull(MazeFactory.makeMaze(10, 0));
+        assertThrows(IllegalArgumentException.class, () -> MazeFactory.makeMaze(0, 0));
+        assertThrows(IllegalArgumentException.class, () -> MazeFactory.makeMaze(0, 10));
+        assertThrows(IllegalArgumentException.class, () -> MazeFactory.makeMaze(10, 0));
     }
 
     @Test
     public void testNegativeDimensions() {
-        assertNull(MazeFactory.makeMaze(10, -10));
-        assertNull(MazeFactory.makeMaze(-10, 10));
+        assertThrows(IllegalArgumentException.class, () -> MazeFactory.makeMaze(10, -10));
+        assertThrows(IllegalArgumentException.class, () -> MazeFactory.makeMaze(-10, 10));
+    }
+
+    @Test
+    public void testSimpleMaze() {
+        Maze maze = MazeFactory.makeMaze(10, 10);
+        assertEquals(10, maze.getHeight());
+        assertEquals(10, maze.getWidth());
     }
 }

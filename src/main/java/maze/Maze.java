@@ -6,7 +6,7 @@ import maze.util.Coordinate;
 import java.util.Arrays;
 
 public final class Maze {
-    Cell[][] walls;
+    private final Cell[][] walls;
 
     public Maze(Cell[][] walls) {
         Preconditions.checkNotNull(walls);
