@@ -4,9 +4,12 @@ import java.awt.*;
 
 public final class MazeSettings {
 
-    // maze dimensions
-    public static int WIDTH = 20;
-    public static int HEIGHT = 20;
+    // maze start
+    public static final String TITLE = "Maze of DOOM!";
+    public static final int STARTING_WIDTH = 20;
+    public static final int STARTING_HEIGHT = 20;
+    public static final int MIN_WIDTH_PIXELS = 400;
+    public static final int MIN_HEIGHT_PIXELS = 300;
 
     // draw settings
     public static final int CELL_PADDING = 5;

@@ -9,36 +9,42 @@ import java.awt.*;
 
 public class MazeApp extends JFrame {
 
-    MazePanel mazePanel;
-    MazeModel mazeModel;
+    private static MazeApp mazeApp;
 
-    public MazeApp(String title) {
+    public MazeApp(String title, int width, int height) {
         super(title);
 
-        Maze maze = MazeFactory.makeMaze(MazeSettings.WIDTH, MazeSettings.HEIGHT);
-        mazeModel = new MazeModel(maze);
-        mazePanel = new MazePanel(mazeModel);
+        Maze maze = MazeFactory.makeMaze(width, height);
+        MazeModel mazeModel = new MazeModel(maze);
+        MazePanel mazePanel = new MazePanel(mazeModel);
 
         JScrollPane scrollPane = new JScrollPane(mazePanel);
         scrollPane.getVerticalScrollBar().setUnitIncrement(MazeSettings.VERTICAL_SCROLL_SPEED);
         scrollPane.getHorizontalScrollBar().setUnitIncrement(MazeSettings.HORIZONTAL_SCROLL_SPEED);
 
-        JPanel resetPanel = new JPanel();
-        JButton reset = new JButton("Reset");
-        reset.addActionListener(l -> mazePanel.reset());
-        resetPanel.add(reset);
+        JPanel actionPanel = new MazeActionPanel(mazePanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(mazeModel.minWidth() + 15, mazeModel.minHeight() + resetPanel.getHeight() + 70);
-        setLocationRelativeTo(null);
-        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        int pixelWidth = Math.max(mazeModel.minWidth() + 25, MazeSettings.MIN_WIDTH_PIXELS);
+        int pixelHeight = Math.max(mazeModel.minHeight() + actionPanel.getHeight() + 80, MazeSettings.MIN_HEIGHT_PIXELS);
+        setSize(pixelWidth, pixelHeight);
+        if (width >= 80 || height >= 50) {
+            setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        } else {
+            setLocationRelativeTo(null);
+        }
 
-        add(BorderLayout.SOUTH, resetPanel);
+        add(BorderLayout.SOUTH, actionPanel);
         add(BorderLayout.CENTER, scrollPane);
         setVisible(true);
     }
 
+    public static void start(int width, int height) {
+        mazeApp.setVisible(false);
+        mazeApp = new MazeApp(MazeSettings.TITLE, width, height);
+    }
+
     public static void main(String[] args) {
-        new MazeApp("Maze of DOOM!");
+        mazeApp = new MazeApp(MazeSettings.TITLE, MazeSettings.STARTING_WIDTH, MazeSettings.STARTING_HEIGHT);
     }
 }
