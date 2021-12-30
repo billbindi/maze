@@ -5,8 +5,10 @@ import maze.util.Coordinate;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.beans.PropertyChangeListener;
 
 public class MazePanel extends JPanel {
     private static final int PADDING = 5;
@@ -20,6 +22,157 @@ public class MazePanel extends JPanel {
         this.maze = maze;
         setBorder(BorderFactory.createLineBorder(Color.black));
         setBackground(Color.white);
+
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "moveRight");
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "moveDown");
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "moveLeft");
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "moveUp");
+
+        getActionMap().put("moveRight", new Action() {
+            @Override
+            public Object getValue(String key) {
+                return "moveRight";
+            }
+
+            @Override
+            public void putValue(String key, Object value) {
+
+            }
+
+            @Override
+            public void setEnabled(boolean b) {
+
+            }
+
+            @Override
+            public boolean isEnabled() {
+                return true;
+            }
+
+            @Override
+            public void addPropertyChangeListener(PropertyChangeListener listener) {
+
+            }
+
+            @Override
+            public void removePropertyChangeListener(PropertyChangeListener listener) {
+
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moveRight();
+            }
+        });
+        getActionMap().put("moveDown", new Action() {
+            @Override
+            public Object getValue(String key) {
+                return "moveDown";
+            }
+
+            @Override
+            public void putValue(String key, Object value) {
+
+            }
+
+            @Override
+            public void setEnabled(boolean b) {
+
+            }
+
+            @Override
+            public boolean isEnabled() {
+                return true;
+            }
+
+            @Override
+            public void addPropertyChangeListener(PropertyChangeListener listener) {
+
+            }
+
+            @Override
+            public void removePropertyChangeListener(PropertyChangeListener listener) {
+
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moveDown();
+            }
+        });
+        getActionMap().put("moveUp", new Action() {
+            @Override
+            public Object getValue(String key) {
+                return "moveUp";
+            }
+
+            @Override
+            public void putValue(String key, Object value) {
+
+            }
+
+            @Override
+            public void setEnabled(boolean b) {
+
+            }
+
+            @Override
+            public boolean isEnabled() {
+                return true;
+            }
+
+            @Override
+            public void addPropertyChangeListener(PropertyChangeListener listener) {
+
+            }
+
+            @Override
+            public void removePropertyChangeListener(PropertyChangeListener listener) {
+
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moveUp();
+            }
+        });
+        getActionMap().put("moveLeft", new Action() {
+            @Override
+            public Object getValue(String key) {
+                return "moveLeft";
+            }
+
+            @Override
+            public void putValue(String key, Object value) {
+
+            }
+
+            @Override
+            public void setEnabled(boolean b) {
+
+            }
+
+            @Override
+            public boolean isEnabled() {
+                return true;
+            }
+
+            @Override
+            public void addPropertyChangeListener(PropertyChangeListener listener) {
+
+            }
+
+            @Override
+            public void removePropertyChangeListener(PropertyChangeListener listener) {
+
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moveLeft();
+            }
+        });
+
     }
 
     @Override
@@ -38,26 +191,36 @@ public class MazePanel extends JPanel {
     }
 
     public void moveLeft() {
-        tryMove(player.coordinateLeft());
+        Coordinate left = player.coordinateLeft();
+        if (left.isInBounds(maze.getWidth(), maze.getHeight()) && !maze.wallRight(left)) {
+            setPlayer(left);
+        }
     }
 
     public void moveUp() {
-        tryMove(player.coordinateUp());
+        Coordinate up = player.coordinateUp();
+        if (up.isInBounds(maze.getWidth(), maze.getHeight()) && !maze.wallDown(up)) {
+            setPlayer(up);
+        }
     }
 
     public void moveRight() {
-        tryMove(player.coordinateRight());
+        Coordinate right = player.coordinateRight();
+        if (right.isInBounds(maze.getWidth(), maze.getHeight()) && !maze.wallRight(player)) {
+            setPlayer(right);
+        }
     }
 
     public void moveDown() {
-        tryMove(player.coordinateDown());
+        Coordinate down = player.coordinateDown();
+        if (down.isInBounds(maze.getWidth(), maze.getHeight()) && !maze.wallDown(player)) {
+            setPlayer(down);
+        }
     }
 
-    private void tryMove(Coordinate newCoord) {
-        if (newCoord.isInBounds(maze.getWidth(), maze.getHeight())) {
-            player = newCoord;
-            repaint();
-        }
+    public void setPlayer(Coordinate coord) {
+        player = coord;
+        repaint();
     }
 
     @Override

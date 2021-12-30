@@ -70,7 +70,7 @@ public final class MazeFactory {
 
     @VisibleForTesting
     static int oneD(Cell[][] maze, int x, int y) {
-        return (y * maze.length) + x;
+        return (y * maze[0].length) + x;
     }
 
     private static int oneD(Cell[][] maze, Coordinate coord) {
@@ -80,7 +80,7 @@ public final class MazeFactory {
     @VisibleForTesting
     static Coordinate twoD(Cell[][] maze, int num) {
         int x = num % maze[0].length;
-        int y = num / maze.length;
+        int y = num / maze[0].length;
         return new Coordinate(x, y);
     }
 
