@@ -96,18 +96,20 @@ public class MazePanel extends JPanel {
 
         g.setColor(MazeSettings.EXIT_COLOR);
         drawExit(g);
+        
         if (model.isSolved()) {
             List<Coordinate> solution = model.solve();
             g.setColor(MazeSettings.SOLVE_PATH_COLOR);
             drawPath(g, solution, -1);
 
-            List<Coordinate> playerPath = model.getPlayerSteps();
-            g.setColor(MazeSettings.PLAYER_PATH_COLOR);
-            drawPath(g, playerPath, 1);
         } else {
             g.setColor(MazeSettings.PLAYER_COLOR);
             drawPlayer(g);
         }
+
+        List<Coordinate> playerPath = model.getPlayerSteps();
+        g.setColor(MazeSettings.PLAYER_PATH_COLOR);
+        drawPath(g, playerPath, 1);
     }
 
     private void drawPath(Graphics g, List<Coordinate> path, int offset) {
