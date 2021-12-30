@@ -8,8 +8,8 @@ public final class MazeSettings {
     public static final String TITLE = "Maze of DOOM!";
     public static final int STARTING_WIDTH = 20;
     public static final int STARTING_HEIGHT = 20;
-    public static final int MIN_WIDTH_PIXELS = 400;
-    public static final int MIN_HEIGHT_PIXELS = 300;
+    public static final int MIN_WIDTH_PIXELS = 330;
+    public static final int MIN_HEIGHT_PIXELS = 290;
 
     // draw settings
     public static final int CELL_PADDING = 5;

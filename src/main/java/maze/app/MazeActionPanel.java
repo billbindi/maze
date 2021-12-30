@@ -12,7 +12,7 @@ public class MazeActionPanel extends JPanel {
         add(reset);
 
         JButton easy = new JButton("Easy");
-        easy.addActionListener(l -> MazeApp.start(10, 10));
+        easy.addActionListener(l -> MazeApp.start(15, 10));
         add(easy);
 
         JButton medium = new JButton("Medium");
@@ -20,7 +20,7 @@ public class MazeActionPanel extends JPanel {
         add(medium);
 
         JButton hard = new JButton("Hard");
-        hard.addActionListener(l -> MazeApp.start(80, 49));
+        hard.addActionListener(l -> MazeApp.start(81, 49));
         add(hard);
     }
 }
