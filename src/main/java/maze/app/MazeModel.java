@@ -42,8 +42,10 @@ public class MazeModel {
     }
 
     public void setPlayer(Coordinate player) {
-        this.player = player;
-        steps.add(player.copy());
+        if (!isSolved()) {
+            this.player = player;
+            steps.add(player.copy());
+        }
     }
 
     public int getHeight() {
