@@ -54,21 +54,6 @@ public class MazePanel extends JPanel {
         getActionMap().put("moveUp", KeyBindings.moveUp(this));
     }
 
-    @Override
-    public Dimension getPreferredSize() {
-        int width = minWidth();
-        int height = minHeight();
-        return new Dimension(width, height);
-    }
-
-    public int minHeight() {
-        return (MazeSettings.CELL_PADDING * 2) + (MazeSettings.CELL_HEIGHT * model.getHeight());
-    }
-
-    public int minWidth() {
-        return (MazeSettings.CELL_PADDING * 2) + (MazeSettings.CELL_WIDTH * model.getWidth());
-    }
-
     public void moveLeft() {
         if (model.canMoveLeft()) {
             setPlayer(model.getPlayer().coordinateLeft());
