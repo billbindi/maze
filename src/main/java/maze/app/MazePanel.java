@@ -22,6 +22,22 @@ public class MazePanel extends JPanel {
 
     }
 
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        drawWalls(g);
+        drawExit(g);
+        drawPlayerPath(g);
+
+        if (model.isSolved()) {
+            drawSolution(g);
+
+        } else {
+            drawPlayer(g);
+        }
+    }
+
     public void reset() {
         setPlayer(new Coordinate(0, 0));
     }
@@ -84,23 +100,6 @@ public class MazePanel extends JPanel {
             model.setPlayer(coord);
         }
         repaint();
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        drawWalls(g);
-        drawExit(g);
-
-        if (model.isSolved()) {
-            drawSolution(g);
-
-        } else {
-            drawPlayer(g);
-        }
-
-        drawPlayerPath(g);
     }
 
     private void drawPlayerPath(Graphics g) {
