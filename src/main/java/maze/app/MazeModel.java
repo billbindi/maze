@@ -2,6 +2,7 @@ package maze.app;
 
 import maze.Maze;
 import maze.util.Coordinate;
+import maze.util.MazeSettings;
 
 public class MazeModel {
 
@@ -56,5 +57,13 @@ public class MazeModel {
     public boolean canMoveUp() {
         Coordinate up = player.coordinateLeft();
         return up.isInBounds(maze.getWidth(), maze.getHeight()) && !maze.wallDown(up);
+    }
+
+    public int minHeight() {
+        return (MazeSettings.CELL_PADDING * 2) + (MazeSettings.CELL_HEIGHT * getHeight());
+    }
+
+    public int minWidth() {
+        return (MazeSettings.CELL_PADDING * 2) + (MazeSettings.CELL_WIDTH * getWidth());
     }
 }

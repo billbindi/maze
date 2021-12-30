@@ -20,6 +20,10 @@ public final class MazeSettings {
     public static final Color PLAYER_COLOR = Color.red;
     public static final Color EXIT_COLOR = Color.green;
 
+    // scrolling
+    public static final int HORIZONTAL_SCROLL_SPEED = 10;
+    public static final int VERTICAL_SCROLL_SPEED = 10;
+
     private MazeSettings() {
         // no instantiation
     }

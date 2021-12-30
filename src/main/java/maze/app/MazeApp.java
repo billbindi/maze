@@ -10,18 +10,18 @@ import java.awt.*;
 public class MazeApp extends JFrame {
 
     MazePanel mazePanel;
+    MazeModel mazeModel;
 
     public MazeApp(String title) {
         super(title);
 
         Maze maze = MazeFactory.makeMaze(MazeSettings.WIDTH, MazeSettings.HEIGHT);
-        MazeModel model = new MazeModel(maze);
-
-        mazePanel = new MazePanel(model);
+        mazeModel = new MazeModel(maze);
+        mazePanel = new MazePanel(mazeModel);
 
         JScrollPane scrollPane = new JScrollPane(mazePanel);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(10);
-        scrollPane.getHorizontalScrollBar().setUnitIncrement(10);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(MazeSettings.VERTICAL_SCROLL_SPEED);
+        scrollPane.getHorizontalScrollBar().setUnitIncrement(MazeSettings.HORIZONTAL_SCROLL_SPEED);
 
         JPanel resetPanel = new JPanel();
         JButton reset = new JButton("Reset");
@@ -29,7 +29,7 @@ public class MazeApp extends JFrame {
         resetPanel.add(reset);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(mazePanel.minWidth() + 15, mazePanel.minHeight() + resetPanel.getHeight() + 70);
+        setSize(mazeModel.minWidth() + 15, mazeModel.minHeight() + resetPanel.getHeight() + 70);
         setLocationRelativeTo(null);
         setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
