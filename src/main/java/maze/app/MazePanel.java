@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeListener;
 
 public class MazePanel extends JPanel {
@@ -16,17 +15,27 @@ public class MazePanel extends JPanel {
     private static final int CELL_HEIGHT = 20;
 
     private final Maze maze;
-    private Coordinate player = new Coordinate(0, 0);
+    private Coordinate player;
 
     public MazePanel(Maze maze) {
         this.maze = maze;
         setBorder(BorderFactory.createLineBorder(Color.black));
         setBackground(Color.white);
 
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "moveRight");
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "moveDown");
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "moveLeft");
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "moveUp");
+        keyBindings();
+        reset();
+
+    }
+
+    public void reset() {
+        setPlayer(new Coordinate(0, 0));
+    }
+
+    private void keyBindings() {
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "moveRight");
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "moveDown");
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "moveLeft");
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "moveUp");
 
         getActionMap().put("moveRight", new Action() {
             @Override
@@ -172,7 +181,6 @@ public class MazePanel extends JPanel {
                 moveLeft();
             }
         });
-
     }
 
     @Override
@@ -218,7 +226,7 @@ public class MazePanel extends JPanel {
         }
     }
 
-    public void setPlayer(Coordinate coord) {
+    private void setPlayer(Coordinate coord) {
         player = coord;
         repaint();
     }
