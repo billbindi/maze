@@ -5,9 +5,7 @@ import maze.util.Coordinate;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeListener;
 
 public class MazePanel extends JPanel {
     private static final int PADDING = 5;
