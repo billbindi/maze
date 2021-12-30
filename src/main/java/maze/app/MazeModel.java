@@ -45,17 +45,17 @@ public class MazeModel {
     }
 
     public boolean canMoveDown() {
-        Coordinate down = player.coordinateLeft();
+        Coordinate down = player.coordinateDown();
         return down.isInBounds(maze.getWidth(), maze.getHeight()) && !maze.wallDown(player);
     }
 
     public boolean canMoveRight() {
-        Coordinate right = player.coordinateLeft();
+        Coordinate right = player.coordinateRight();
         return right.isInBounds(maze.getWidth(), maze.getHeight()) && !maze.wallRight(player);
     }
 
     public boolean canMoveUp() {
-        Coordinate up = player.coordinateLeft();
+        Coordinate up = player.coordinateUp();
         return up.isInBounds(maze.getWidth(), maze.getHeight()) && !maze.wallDown(up);
     }
 
