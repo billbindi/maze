@@ -38,6 +38,10 @@ public class MazeModel {
         return maze.getWidth();
     }
 
+    public Coordinate getExit() {
+        return new Coordinate(maze.getWidth() - 1, maze.getHeight() - 1);
+    }
+
     public boolean canMoveLeft() {
         Coordinate left = player.coordinateLeft();
         return left.isInBounds(maze.getWidth(), maze.getHeight())

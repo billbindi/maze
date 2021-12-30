@@ -26,9 +26,6 @@ public class MazePanel extends JPanel {
     }
 
     private void keyBindings() {
-//        getInputMap().clear();
-//        getActionMap().clear();
-
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "moveRight");
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "moveDown");
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "moveLeft");
@@ -124,7 +121,7 @@ public class MazePanel extends JPanel {
     }
 
     private void drawExit(Graphics g) {
-        Coordinate exit = new Coordinate(model.getWidth() - 1, model.getHeight() - 1);
+        Coordinate exit = model.getExit();
         g.fillRect(leftX(exit) + 1, topY(exit) + 1, MazeSettings.CELL_WIDTH - 2, MazeSettings.CELL_HEIGHT - 2);
     }
 
