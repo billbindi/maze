@@ -1,6 +1,5 @@
 package maze.app;
 
-import maze.MazeSolver;
 import maze.util.Coordinate;
 import maze.util.MazeSettings;
 

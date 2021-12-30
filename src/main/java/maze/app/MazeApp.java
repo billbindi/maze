@@ -28,7 +28,7 @@ public class MazeApp extends JFrame {
         int pixelWidth = Math.max(mazeModel.minWidth() + 25, MazeSettings.MIN_WIDTH_PIXELS);
         int pixelHeight = Math.max(mazeModel.minHeight() + actionPanel.getHeight() + 80, MazeSettings.MIN_HEIGHT_PIXELS);
         setSize(pixelWidth, pixelHeight);
-        if (width >= 82 || height >= 50) {
+        if (width >= 82 && height >= 50) {
             setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
         } else {
             setLocationRelativeTo(null);

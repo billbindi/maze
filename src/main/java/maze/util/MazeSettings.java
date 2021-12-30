@@ -9,7 +9,7 @@ public final class MazeSettings {
     public static final int STARTING_WIDTH = 20;
     public static final int STARTING_HEIGHT = 20;
     public static final int MIN_WIDTH_PIXELS = 330;
-    public static final int MIN_HEIGHT_PIXELS = 290;
+    public static final int MIN_HEIGHT_PIXELS = 110;
 
     // draw settings
     public static final int CELL_PADDING = 5;
