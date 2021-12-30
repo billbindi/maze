@@ -1,5 +1,7 @@
 package maze.app;
 
+import maze.util.MazeSettings;
+
 import javax.swing.*;
 
 public class MazeActionPanel extends JPanel {
@@ -8,21 +10,21 @@ public class MazeActionPanel extends JPanel {
         super();
 
         JButton easy = new JButton("Easy");
-        easy.addActionListener(l -> MazeApp.start(15, 10));
+        easy.addActionListener(l -> MazeApp.start(MazeSettings.EASY_WIDTH, MazeSettings.EASY_HEIGHT));
         add(easy);
 
         JButton medium = new JButton("Medium");
-        medium.addActionListener(l -> MazeApp.start(20, 20));
+        medium.addActionListener(l -> MazeApp.start(MazeSettings.MEDIUM_WIDTH, MazeSettings.MEDIUM_HEIGHT));
         add(medium);
 
         JButton hard = new JButton("Hard");
-        hard.addActionListener(l -> MazeApp.start(81, 49));
+        hard.addActionListener(l -> MazeApp.start(MazeSettings.HARD_WIDTH, MazeSettings.HARD_HEIGHT));
         add(hard);
 
         JButton custom = new JButton("Custom");
         custom.addActionListener(l -> {
-            JTextField widthField = new JTextField(5);
-            JTextField heightField = new JTextField(5);
+            JTextField widthField = new JTextField(3);
+            JTextField heightField = new JTextField(3);
 
             JPanel sizePanel = new JPanel();
             sizePanel.add(new JLabel("width:"));

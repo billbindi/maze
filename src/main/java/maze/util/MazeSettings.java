@@ -6,10 +6,22 @@ public final class MazeSettings {
 
     // maze start
     public static final String TITLE = "Maze of DOOM!";
-    public static final int STARTING_WIDTH = 20;
-    public static final int STARTING_HEIGHT = 20;
+    public static final int STARTING_WIDTH = 25;
+    public static final int STARTING_HEIGHT = 25;
     public static final int MIN_WIDTH_PIXELS = 330;
     public static final int MIN_HEIGHT_PIXELS = 110;
+
+    // easy size based on button panel width
+    public static final int EASY_WIDTH = 15;
+    public static final int EASY_HEIGHT = 10;
+
+    // medium size is just starting maze
+    public static final int MEDIUM_WIDTH = STARTING_WIDTH;
+    public static final int MEDIUM_HEIGHT = STARTING_HEIGHT;
+
+    // Hard size based on laptop screen size
+    public static final int HARD_WIDTH = 81;
+    public static final int HARD_HEIGHT = 49;
 
     // draw settings
     public static final int CELL_PADDING = 5;
