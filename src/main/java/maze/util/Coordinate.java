@@ -44,6 +44,10 @@ public class Coordinate {
         return x >= 0 && y >= 0 && x < width && y < height;
     }
 
+    public Coordinate copy() {
+        return new Coordinate(getX(), getY());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

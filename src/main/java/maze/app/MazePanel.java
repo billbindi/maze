@@ -1,11 +1,13 @@
 package maze.app;
 
+import maze.MazeSolver;
 import maze.util.Coordinate;
 import maze.util.MazeSettings;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 public class MazePanel extends JPanel {
 
@@ -77,21 +79,43 @@ public class MazePanel extends JPanel {
     }
 
     private void setPlayer(Coordinate coord) {
-        model.setPlayer(coord);
+        if (coord.equals(model.getExit())) {
+            model.setSolved(true);
+        } else {
+            model.setPlayer(coord);
+        }
         repaint();
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         g.setColor(MazeSettings.WALL_COLOR);
         drawWalls(g);
 
-        g.setColor(MazeSettings.PLAYER_COLOR);
-        drawPlayer(g);
-
         g.setColor(MazeSettings.EXIT_COLOR);
         drawExit(g);
+        if (model.isSolved()) {
+            List<Coordinate> solution = model.solve();
+            g.setColor(MazeSettings.SOLVE_PATH_COLOR);
+            drawPath(g, solution, -1);
+
+            List<Coordinate> playerPath = model.getPlayerSteps();
+            g.setColor(MazeSettings.PLAYER_PATH_COLOR);
+            drawPath(g, playerPath, 1);
+        } else {
+            g.setColor(MazeSettings.PLAYER_COLOR);
+            drawPlayer(g);
+        }
+    }
+
+    private void drawPath(Graphics g, List<Coordinate> path, int offset) {
+        for (int i = 0; i < path.size() - 1; i++) {
+            Coordinate first = path.get(i);
+            Coordinate second = path.get(i + 1);
+            g.drawLine(centerX(first) + offset, centerY(first) + offset, centerX(second) + offset, centerY(second) + offset);
+        }
     }
 
     private void drawWalls(Graphics g) {
@@ -157,4 +181,11 @@ public class MazePanel extends JPanel {
         return MazeSettings.CELL_PADDING + ((coord.getY() + 1) * MazeSettings.CELL_HEIGHT);
     }
 
+    private static int centerX(Coordinate coord) {
+        return leftX(coord) + (MazeSettings.CELL_WIDTH / 2);
+    }
+
+    private static int centerY(Coordinate coord) {
+        return topY(coord) + (MazeSettings.CELL_HEIGHT / 2);
+    }
 }
