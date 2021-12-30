@@ -91,25 +91,29 @@ public class MazePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.setColor(MazeSettings.WALL_COLOR);
         drawWalls(g);
-
-        g.setColor(MazeSettings.EXIT_COLOR);
         drawExit(g);
-        
+
         if (model.isSolved()) {
-            List<Coordinate> solution = model.solve();
-            g.setColor(MazeSettings.SOLVE_PATH_COLOR);
-            drawPath(g, solution, -1);
+            drawSolution(g);
 
         } else {
-            g.setColor(MazeSettings.PLAYER_COLOR);
             drawPlayer(g);
         }
 
+        drawPlayerPath(g);
+    }
+
+    private void drawPlayerPath(Graphics g) {
         List<Coordinate> playerPath = model.getPlayerSteps();
         g.setColor(MazeSettings.PLAYER_PATH_COLOR);
         drawPath(g, playerPath, 1);
+    }
+
+    private void drawSolution(Graphics g) {
+        g.setColor(MazeSettings.SOLVE_PATH_COLOR);
+        List<Coordinate> solution = model.solve();
+        drawPath(g, solution, -1);
     }
 
     private void drawPath(Graphics g, List<Coordinate> path, int offset) {
@@ -121,6 +125,7 @@ public class MazePanel extends JPanel {
     }
 
     private void drawWalls(Graphics g) {
+        g.setColor(MazeSettings.WALL_COLOR);
         drawTop(g);
         drawLeft(g);
         drawMaze(g);
@@ -142,11 +147,13 @@ public class MazePanel extends JPanel {
     }
 
     private void drawPlayer(Graphics g) {
+        g.setColor(MazeSettings.PLAYER_COLOR);
         Coordinate player = model.getPlayer();
         g.fillRect(leftX(player) + 2, topY(player) + 2, MazeSettings.CELL_WIDTH - 4, MazeSettings.CELL_HEIGHT - 4);
     }
 
     private void drawExit(Graphics g) {
+        g.setColor(MazeSettings.EXIT_COLOR);
         Coordinate exit = model.getExit();
         g.fillRect(leftX(exit) + 1, topY(exit) + 1, MazeSettings.CELL_WIDTH - 2, MazeSettings.CELL_HEIGHT - 2);
     }
