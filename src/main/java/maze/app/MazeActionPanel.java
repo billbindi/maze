@@ -33,14 +33,31 @@ public class MazeActionPanel extends JPanel {
             sizePanel.add(new JLabel("height:"));
             sizePanel.add(heightField);
 
-            int result = JOptionPane.showConfirmDialog(null, sizePanel,
-                    "Please enter width and height values.", JOptionPane.OK_CANCEL_OPTION);
-            if (result == JOptionPane.OK_OPTION) {
-                int width = Integer.parseInt(widthField.getText());
-                int height = Integer.parseInt(heightField.getText());
-                MazeApp.start(width, height);
+            while (true) {
+                int result = JOptionPane.showConfirmDialog(null, sizePanel,
+                        "Please enter width and height values.", JOptionPane.OK_CANCEL_OPTION);
+                if (result == JOptionPane.OK_OPTION) {
+                    try {
+                        int width = Integer.parseInt(widthField.getText());
+                        int height = Integer.parseInt(heightField.getText());
+                        if (width > 0 && height > 0) {
+                            MazeApp.start(width, height);
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Please enter a POSITIVE integer for BOTH width and height.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Please enter a valid integer for width and height.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else if (result == JOptionPane.CANCEL_OPTION) {
+                    break;
+                }
             }
         });
         add(custom);
+    }
+
+    public boolean isValidSize(String input) {
+        return input.matches("\\d+") && Integer.parseInt(input) > 0;
     }
 }
