@@ -22,7 +22,7 @@ public class MazeApp extends JFrame {
         scrollPane.getVerticalScrollBar().setUnitIncrement(MazeSettings.VERTICAL_SCROLL_SPEED);
         scrollPane.getHorizontalScrollBar().setUnitIncrement(MazeSettings.HORIZONTAL_SCROLL_SPEED);
 
-        JPanel actionPanel = new MazeActionPanel(mazePanel);
+        JPanel actionPanel = new MazeActionPanel();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         int pixelWidth = Math.max(mazeModel.minWidth() + 25, MazeSettings.MIN_WIDTH_PIXELS);
