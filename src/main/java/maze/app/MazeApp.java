@@ -2,22 +2,19 @@ package maze.app;
 
 import maze.Maze;
 import maze.MazeFactory;
-import maze.util.Coordinate;
+import maze.util.MazeSettings;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MazeApp extends JFrame {
 
-    private static final int WIDTH = 125;
-    private static final int HEIGHT = 75;
-
     MazePanel mazePanel;
 
     public MazeApp(String title) {
         super(title);
 
-        Maze maze = MazeFactory.makeMaze(WIDTH, HEIGHT);
+        Maze maze = MazeFactory.makeMaze(MazeSettings.WIDTH, MazeSettings.HEIGHT);
         maze.printMaze();
 
         mazePanel = new MazePanel(maze);
@@ -34,7 +31,8 @@ public class MazeApp extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(mazePanel.minWidth() + 15, mazePanel.minHeight() + resetPanel.getHeight() + 70);
         setLocationRelativeTo(null);
-//        add(BorderLayout.CENTER, mazePanel);
+        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+
         add(BorderLayout.SOUTH, resetPanel);
         add(BorderLayout.CENTER, scrollPane);
         setVisible(true);

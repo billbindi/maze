@@ -2,23 +2,21 @@ package maze.app;
 
 import maze.Maze;
 import maze.util.Coordinate;
+import maze.util.MazeSettings;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class MazePanel extends JPanel {
-    private static final int PADDING = 5;
-    private static final int CELL_WIDTH = 20;
-    private static final int CELL_HEIGHT = 20;
 
     private final Maze maze;
     private Coordinate player;
 
     public MazePanel(Maze maze) {
         this.maze = maze;
-        setBorder(BorderFactory.createLineBorder(Color.black));
-        setBackground(Color.white);
+        setBorder(BorderFactory.createLineBorder(MazeSettings.BORDER_COLOR));
+        setBackground(MazeSettings.BACKGROUND_COLOR);
 
         keyBindings();
         reset();
@@ -49,11 +47,11 @@ public class MazePanel extends JPanel {
     }
 
     public int minHeight() {
-        return (PADDING * 2) + (CELL_HEIGHT * maze.getHeight());
+        return (MazeSettings.CELL_PADDING * 2) + (MazeSettings.CELL_HEIGHT * maze.getHeight());
     }
 
     public int minWidth() {
-        return (PADDING * 2) + (CELL_WIDTH * maze.getWidth());
+        return (MazeSettings.CELL_PADDING * 2) + (MazeSettings.CELL_WIDTH * maze.getWidth());
     }
 
     public void moveLeft() {
@@ -92,16 +90,20 @@ public class MazePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.black);
+        g.setColor(MazeSettings.WALL_COLOR);
+        drawWalls(g);
+
+        g.setColor(MazeSettings.PLAYER_COLOR);
+        drawPlayer(g);
+
+        g.setColor(MazeSettings.EXIT_COLOR);
+        drawExit(g);
+    }
+
+    private void drawWalls(Graphics g) {
         drawTop(g);
         drawLeft(g);
         drawMaze(g);
-
-        g.setColor(Color.RED);
-        drawPlayer(g);
-
-        g.setColor(Color.GREEN);
-        drawExit(g);
     }
 
     private void drawMaze(Graphics g) {
@@ -120,12 +122,12 @@ public class MazePanel extends JPanel {
     }
 
     private void drawPlayer(Graphics g) {
-        g.fillRect(leftX(player) + 2, topY(player) + 2, CELL_WIDTH - 4, CELL_HEIGHT - 4);
+        g.fillRect(leftX(player) + 2, topY(player) + 2, MazeSettings.CELL_WIDTH - 4, MazeSettings.CELL_HEIGHT - 4);
     }
 
     private void drawExit(Graphics g) {
         Coordinate exit = new Coordinate(maze.getWidth() - 1, maze.getHeight() - 1);
-        g.fillRect(leftX(exit) + 1, topY(exit) + 1, CELL_WIDTH - 2, CELL_HEIGHT - 2);
+        g.fillRect(leftX(exit) + 1, topY(exit) + 1, MazeSettings.CELL_WIDTH - 2, MazeSettings.CELL_HEIGHT - 2);
     }
 
     private void drawTop(Graphics g) {
@@ -145,18 +147,19 @@ public class MazePanel extends JPanel {
     }
 
     private static int leftX(Coordinate coord) {
-        return PADDING + (coord.getX() * CELL_WIDTH);
+        return MazeSettings.CELL_PADDING + (coord.getX() * MazeSettings.CELL_WIDTH);
     }
 
     private static int rightX(Coordinate coord) {
-        return PADDING + ((coord.getX() + 1) * CELL_WIDTH);
+        return MazeSettings.CELL_PADDING + ((coord.getX() + 1) * MazeSettings.CELL_WIDTH);
     }
 
     private static int topY(Coordinate coord) {
-        return PADDING + (coord.getY() * CELL_HEIGHT);
+        return MazeSettings.CELL_PADDING + (coord.getY() * MazeSettings.CELL_HEIGHT);
     }
 
     private static int bottomY(Coordinate coord) {
-        return PADDING + ((coord.getY() + 1) * CELL_HEIGHT);
+        return MazeSettings.CELL_PADDING + ((coord.getY() + 1) * MazeSettings.CELL_HEIGHT);
     }
+
 }
